@@ -12,10 +12,14 @@ class InformacionApp extends StatelessWidget {
         child: Column(
           children: [
             CustomTextTitleFields(text: "Desarrollado por:"),
-            CustomTextCards(text: "Brayan Lozada"),
+            CustomTextCards(text: "Brayan Yesid Lozada Orozco"),
             SizedBox(height: 15),
             CustomTextTitleFields(text: "Materia:"),
-            CustomTextCards(text: "Ecuaciones diferenciales")
+            CustomTextCards(text: "Ecuaciones diferenciales"),
+            SizedBox(height: 15),
+            CustomTextTitleFields(text: "Tema:"),
+            CustomTextCards(text: "Crecimiento poblacional"),
+            CustomTextCards(text: "Ley de enfriamiento de Newtom"),
           ],
         ),
       ),

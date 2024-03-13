@@ -26,7 +26,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
       onChanged: widget.onChanged,
       elevation: 2,
       borderRadius: BorderRadius.circular(25),
-      style: textTheme.labelSmall,
+      style: textTheme.labelSmall!.copyWith(color: Colors.black),
     );
   }
 }

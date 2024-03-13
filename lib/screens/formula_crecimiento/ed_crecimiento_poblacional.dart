@@ -182,7 +182,6 @@ class _CrecimientoPoblacionalState extends State<CrecimientoPoblacional> {
                       t = double.parse(_tController.text);
                       double finalPoblation =
                           hallarPoblacionFinal(p0: p0, k: k, t: t);
-                          print("Población final $finalPoblation");
                       result = finalPoblation.toStringAsFixed(2);
                     }
                     isVisible = true;
