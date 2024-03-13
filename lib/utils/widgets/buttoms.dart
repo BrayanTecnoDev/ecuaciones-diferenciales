@@ -7,3 +7,9 @@ ElevatedButton customElevatedButton(
   return ElevatedButton(
       onPressed: onPressed, child: CustomStyleTextButton(text: text));
 }
+
+FilledButton customFilledButton(
+    {void Function()? onPressed, required String text}) {
+  return FilledButton(
+      onPressed: onPressed, child: CustomStyleTextButton(text: text));
+}

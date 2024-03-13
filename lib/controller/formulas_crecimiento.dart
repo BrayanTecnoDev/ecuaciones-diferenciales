@@ -14,7 +14,7 @@ double hallarTiempoP(
   return math.log(result) / k;
 }
 
-// Hallar población en el tiempo
+// Hallar población en un tiempo determinado
 double hallarPoblacionFinal(
     {required double p0, required double k, required double t}) {
   return p0 * (math.exp(k * t));

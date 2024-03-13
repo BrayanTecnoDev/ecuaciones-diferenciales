@@ -53,6 +53,7 @@ class _LeyEnfriamientoNewtonState extends State<LeyEnfriamientoNewton> {
           title: CustomAppBar(title: title),
           actions: <IconButton>[iconButton(context, lista: _lista)],
         ),
+        floatingActionButton: _buttonReiniciar(context),
         body: Center(
           child: SizedBox(
             width: MediaQuery.sizeOf(context).width * 0.9,
@@ -77,22 +78,23 @@ class _LeyEnfriamientoNewtonState extends State<LeyEnfriamientoNewton> {
                   controller: _t1Controller,
                   enabled: _textFieldEnabled,
                 ),
-                const SizedBox(height: 5,),
-                 Row(
-              children: [
-                const Expanded(
-                    flex: 1,
-                    child: CustomTextTitleFields(text: "Tiempo:")),
-                const SizedBox(width: 10),
-                Expanded(
-                  flex: 4,
-                  child: CustomDropDownButton(
-                      value: selectedTime,
-                      onChanged: (String? value) =>
-                          setState(() => selectedTime = value.toString())),
+                const SizedBox(
+                  height: 5,
                 ),
-              ],
-            ),
+                Row(
+                  children: [
+                    const Expanded(
+                        flex: 1, child: CustomTextTitleFields(text: "Tiempo:")),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      flex: 4,
+                      child: CustomDropDownButton(
+                          value: selectedTime,
+                          onChanged: (String? value) =>
+                              setState(() => selectedTime = value.toString())),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -148,8 +150,8 @@ class _LeyEnfriamientoNewtonState extends State<LeyEnfriamientoNewton> {
   }
 
   //Botón calcular
-  ElevatedButton _buttonCalcular(BuildContext context) {
-    return customElevatedButton(
+  FilledButton _buttonCalcular(BuildContext context) {
+    return customFilledButton(
         onPressed: _buttonEnabled
             ? () {
                 if (_t0Controller.text.isNotEmpty) {
@@ -162,12 +164,12 @@ class _LeyEnfriamientoNewtonState extends State<LeyEnfriamientoNewton> {
                     double c = hallarC(t0: t0, ta: ta);
                     double k = hallarKEnfriamiento(t1: t1, c: c, ta: ta);
 
-                    if (_t2Controller.text.isNotEmpty) {
+                    if (_t2Controller.text.isNotEmpty && temperaturaBool == false) {
                       t2 = double.parse(_t2Controller.text);
                       double finalTime =
                           hallarTiempoE(t2: t2, ta: ta, k: k, c: c);
                       result = finalTime.toStringAsFixed(2);
-                    } else if (_tController.text.isNotEmpty) {
+                    } else if (_tController.text.isNotEmpty && temperaturaBool == true) {
                       t = double.parse(_tController.text);
                       double finalTemperatura =
                           hallarTemperaturaFinal(c: c, ta: ta, k: k, t: t);
@@ -185,7 +187,8 @@ class _LeyEnfriamientoNewtonState extends State<LeyEnfriamientoNewton> {
   Card _cardCustom(BuildContext context) {
     return cardCustom(
       context,
-      text: _resulText(context, c: temperaturaBool ? t : t2, result: result, timeData: selectedTime),
+      text: _resulText(context,
+          c: temperaturaBool ? t : t2, result: result, timeData: selectedTime),
     );
   }
 
@@ -195,6 +198,25 @@ class _LeyEnfriamientoNewtonState extends State<LeyEnfriamientoNewton> {
       text: temperaturaBool
           ? "La temperatura alcanzada en ${c.toStringAsFixed(0)} $timeData es de $result °C"
           : "El tiempo transcurrido para que la temperatura llegara a ${c.toStringAsFixed(0)} °C es de $result $timeData ",
+    );
+  }
+
+  ElevatedButton _buttonReiniciar(BuildContext context) {
+    return customElevatedButton(
+      text: "Reiniciar",
+      onPressed: () {
+        selectedTime = "Segundos";
+        _t0Controller.clear();
+        _taController.clear();
+        _t1Controller.clear();
+        _t2Controller.clear();
+        _tController.clear();
+        isVisible = false;
+        tiempoBool = false;
+        _buttonEnabled = true;
+        temperaturaBool = false;
+        _textFieldEnabled = true;
+      },
     );
   }
 }

@@ -50,6 +50,7 @@ class _CrecimientoPoblacionalState extends State<CrecimientoPoblacional> {
         title: CustomAppBar(title: title),
         actions: <IconButton>[iconButton(context, lista: _lista)],
       ),
+      floatingActionButton: _buttonReiniciar(context),
       body: Center(
           child: SizedBox(
         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -69,19 +70,22 @@ class _CrecimientoPoblacionalState extends State<CrecimientoPoblacional> {
               enabled: _textFieldEnabled,
             ),
             const SizedBox(height: 5),
-            Row(
-              children: [
-                const Expanded(
-                    flex: 1, child: CustomTextTitleFields(text: "Tiempo:")),
-                const SizedBox(width: 10),
-                Expanded(
-                  flex: 4,
-                  child: CustomDropDownButton(
-                      value: selectedTime,
-                      onChanged: (String? value) =>
-                          setState(() => selectedTime = value.toString())),
-                ),
-              ],
+            Visibility(
+              visible: _textFieldEnabled,
+              child: Row(
+                children: [
+                  const Expanded(
+                      flex: 1, child: CustomTextTitleFields(text: "Tiempo:")),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    flex: 4,
+                    child: CustomDropDownButton(
+                        value: selectedTime,
+                        onChanged: (String? value) =>
+                            setState(() => selectedTime = value.toString())),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 20),
             Row(
@@ -137,9 +141,29 @@ class _CrecimientoPoblacionalState extends State<CrecimientoPoblacional> {
     );
   }
 
-  //Botón calcular
-  ElevatedButton _buttonCalcular(BuildContext context) {
+  ElevatedButton _buttonReiniciar(BuildContext context) {
     return customElevatedButton(
+      text: "Reiniciar",
+      onPressed: () {
+        setState(() {
+          _poController.clear();
+          _p1Controller.clear();
+          _tController.clear();
+          _p2Controller.clear();
+          _textFieldEnabled = true;
+          isVisible = false;
+          tiempoBool = false;
+          _buttonEnabled = true;
+          poblacionBool = false;
+          selectedTime = "Segundos";
+        });
+      },
+    );
+  }
+
+  //Botón calcular
+  FilledButton _buttonCalcular(BuildContext context) {
+    return customFilledButton(
         onPressed: _buttonEnabled
             ? () {
                 if (_poController.text.isNotEmpty) {
@@ -150,14 +174,15 @@ class _CrecimientoPoblacionalState extends State<CrecimientoPoblacional> {
                     double p1 = double.parse(_p1Controller.text);
                     double k = hallarKPoblacion(p0: p0, p1: p1);
 
-                    if (_p2Controller.text.isNotEmpty) {
+                    if (_p2Controller.text.isNotEmpty  && poblacionBool == false) {
                       p2 = double.parse(_p2Controller.text);
                       double finalTime = hallarTiempoP(p0: p0, p2: p2, k: k);
                       result = finalTime.toStringAsFixed(2);
-                    } else if (_tController.text.isNotEmpty) {
+                    } else if (_tController.text.isNotEmpty  && poblacionBool == true) {
                       t = double.parse(_tController.text);
                       double finalPoblation =
                           hallarPoblacionFinal(p0: p0, k: k, t: t);
+                          print("Población final $finalPoblation");
                       result = finalPoblation.toStringAsFixed(2);
                     }
                     isVisible = true;
@@ -191,7 +216,7 @@ class _TextVisibility {
   final String poblacion =
       "Hallar la población cuando ha transcurrido el siguiente tiempo";
   final String tiempo =
-      "Hallar eñ tiempo transcurrido cuando se ha alcanzdo la siguiente población";
+      "Hallar el tiempo transcurrido cuando se ha alcanzdo la siguiente población";
 
   _TextVisibility();
 }
