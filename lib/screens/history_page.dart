@@ -14,15 +14,15 @@ class _HistoryState extends State<History> {
     final List<Card> listaInvertida = widget.lista.reversed.toList();
     return Scaffold(
       appBar: AppBar(title: const Text("Historial")),
-      body: ListView.builder(
-          itemCount: listaInvertida.length,
-          itemBuilder: (context, index) {
-            return Center(
-              child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.93,
-                  child: listaInvertida[index]),
-            );
-          }),
+      body: listaInvertida.isEmpty
+          ? const Center(child: Text("Historial vacío"))
+          : ListView.builder(
+              itemCount: listaInvertida.length,
+              itemBuilder: (context, index) => Center(
+                  child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.93,
+                      child: listaInvertida[index])),
+            ),
     );
   }
 }
