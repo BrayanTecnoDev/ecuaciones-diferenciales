@@ -6,6 +6,7 @@ import '../../utils/widgets/buttoms.dart';
 import '../../utils/widgets/custom_cards.dart';
 import '../../utils/widgets/custom_visibility.dart';
 import '../../utils/widgets/icon_button.dart';
+import '../../utils/widgets/custom_drop_dowm_button.dart';
 import '../../utils/widgets/text_form_field.dart';
 import '../../utils/widgets/text_items.dart';
 
@@ -18,19 +19,20 @@ class CrecimientoPoblacional extends StatefulWidget {
 
 class _CrecimientoPoblacionalState extends State<CrecimientoPoblacional> {
   final String title = "Crecimiento poblacional";
-  final _poController = TextEditingController();
-  final _p1Controller = TextEditingController();
-  final _p2Controller = TextEditingController();
-  final _tController = TextEditingController();
+  String selectedTime = "Segundos";
   String result = '';
   double p2 = 0;
   double t = 0;
   final List<Card> _lista = [];
-  bool _buttonEnabled = true;
-  bool _textFieldEnabled = true;
+  final _poController = TextEditingController();
+  final _p1Controller = TextEditingController();
+  final _p2Controller = TextEditingController();
+  final _tController = TextEditingController();
   bool isVisible = false;
   bool tiempoBool = false;
+  bool _buttonEnabled = true;
   bool poblacionBool = false;
+  bool _textFieldEnabled = true;
 
   @override
   void dispose() {
@@ -62,9 +64,24 @@ class _CrecimientoPoblacionalState extends State<CrecimientoPoblacional> {
             ),
             CustomTextFormFields(
               text: "P(1):",
-              hintText: "Población en t(1)",
+              hintText: "Población en tiempo = 1",
               controller: _p1Controller,
               enabled: _textFieldEnabled,
+            ),
+            const SizedBox(height: 5),
+            Row(
+              children: [
+                const Expanded(
+                    flex: 1, child: CustomTextTitleFields(text: "Tiempo:")),
+                const SizedBox(width: 10),
+                Expanded(
+                  flex: 4,
+                  child: CustomDropDownButton(
+                      value: selectedTime,
+                      onChanged: (String? value) =>
+                          setState(() => selectedTime = value.toString())),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
             Row(
@@ -155,25 +172,26 @@ class _CrecimientoPoblacionalState extends State<CrecimientoPoblacional> {
   Card _cardCustom(BuildContext context) {
     return cardCustom(
       context,
-      text: _resulText(context, c: poblacionBool ? t : p2, result: result),
+      text: _resulText(context,
+          c: poblacionBool ? t : p2, result: result, timeData: selectedTime),
     );
   }
 
   CustomTextCards _resulText(BuildContext context,
-      {required double c, required String result}) {
+      {required double c, required String result, required String timeData}) {
     return CustomTextCards(
       text: poblacionBool
-          ? "La población alcanzada en ${c.toStringAsFixed(0)} es de $result individuos"
-          : "El tiempo transcurrido para que la población llegara a ${c.toStringAsFixed(0)} individuos es de $result segundos, ",
+          ? "La población alcanzada en ${c.toStringAsFixed(0)} $timeData es de $result individuos"
+          : "El tiempo transcurrido para que la población llegara a ${c.toStringAsFixed(0)} individuos es de $result $timeData ",
     );
   }
 }
 
 class _TextVisibility {
   final String poblacion =
-      "Hallar población cuando ha transcurrido el siguiente tiempo";
+      "Hallar la población cuando ha transcurrido el siguiente tiempo";
   final String tiempo =
-      "Hallar tiempo transcurrido cuando se ha alcanzdo la siguiente población";
+      "Hallar eñ tiempo transcurrido cuando se ha alcanzdo la siguiente población";
 
   _TextVisibility();
 }

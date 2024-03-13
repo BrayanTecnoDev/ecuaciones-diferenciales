@@ -5,6 +5,7 @@ import '../../utils/themes/custom_text_style.dart';
 import '../../utils/widgets/app_bar.dart';
 import '../../utils/widgets/buttoms.dart';
 import '../../utils/widgets/custom_cards.dart';
+import '../../utils/widgets/custom_drop_dowm_button.dart';
 import '../../utils/widgets/custom_visibility.dart';
 import '../../utils/widgets/icon_button.dart';
 import '../../utils/widgets/text_form_field.dart';
@@ -19,20 +20,21 @@ class LeyEnfriamientoNewton extends StatefulWidget {
 
 class _LeyEnfriamientoNewtonState extends State<LeyEnfriamientoNewton> {
   final String title = "Ley de enfriamiento Newton";
+  String selectedTime = "Segundos";
+  String result = '';
+  double t2 = 0;
+  double t = 0;
+  final List<Card> _lista = [];
   final _t0Controller = TextEditingController();
   final _taController = TextEditingController();
   final _t1Controller = TextEditingController();
   final _t2Controller = TextEditingController();
   final _tController = TextEditingController();
-  String result = '';
-  double t2 = 0;
-  double t = 0;
-  final List<Card> _lista = [];
-  bool _buttonEnabled = true;
-  bool _textFieldEnabled = true;
   bool isVisible = false;
   bool tiempoBool = false;
+  bool _buttonEnabled = true;
   bool temperaturaBool = false;
+  bool _textFieldEnabled = true;
 
   @override
   void dispose() {
@@ -71,13 +73,27 @@ class _LeyEnfriamientoNewtonState extends State<LeyEnfriamientoNewton> {
                 ),
                 CustomTextFormFields(
                   text: "T(1):",
-                  hintText: "Temperatura en t(1).",
+                  hintText: "Temperatura en temperatura =1.",
                   controller: _t1Controller,
                   enabled: _textFieldEnabled,
                 ),
-                const SizedBox(
-                  height: 20,
+                const SizedBox(height: 5,),
+                 Row(
+              children: [
+                const Expanded(
+                    flex: 1,
+                    child: CustomTextTitleFields(text: "Tiempo:")),
+                const SizedBox(width: 10),
+                Expanded(
+                  flex: 4,
+                  child: CustomDropDownButton(
+                      value: selectedTime,
+                      onChanged: (String? value) =>
+                          setState(() => selectedTime = value.toString())),
                 ),
+              ],
+            ),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -103,7 +119,7 @@ class _LeyEnfriamientoNewtonState extends State<LeyEnfriamientoNewton> {
                   visible: temperaturaBool,
                   title: _TextVisibility().temperatura,
                   text: "T:",
-                  hintText: "tiempo",
+                  hintText: "Tiempo",
                   controller: _tController,
                   onChanged: (text) => setState(() => _buttonEnabled = true),
                 ),
@@ -169,16 +185,16 @@ class _LeyEnfriamientoNewtonState extends State<LeyEnfriamientoNewton> {
   Card _cardCustom(BuildContext context) {
     return cardCustom(
       context,
-      text: _resulText(context, c: temperaturaBool ? t : t2, result: result),
+      text: _resulText(context, c: temperaturaBool ? t : t2, result: result, timeData: selectedTime),
     );
   }
 
   CustomTextCards _resulText(BuildContext context,
-      {required double c, required String result}) {
+      {required double c, required String result, required String timeData}) {
     return CustomTextCards(
       text: temperaturaBool
-          ? "La temperatura alcanzada en ${c.toStringAsFixed(0)} es de $result °C"
-          : "El tiempo transcurrido para que la temperatura llegara a ${c.toStringAsFixed(0)} °C es de $result segundos, ",
+          ? "La temperatura alcanzada en ${c.toStringAsFixed(0)} $timeData es de $result °C"
+          : "El tiempo transcurrido para que la temperatura llegara a ${c.toStringAsFixed(0)} °C es de $result $timeData ",
     );
   }
 }
