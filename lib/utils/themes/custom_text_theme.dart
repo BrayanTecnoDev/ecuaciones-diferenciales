@@ -18,7 +18,7 @@ TextStyle _bodyMedium() =>
     const TextStyle(fontSize: 20, fontWeight: FontWeight.normal);
 
 TextStyle _labelLarge() => const TextStyle(
-    fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.8);
+    fontSize: 12, fontWeight: FontWeight.w500, letterSpacing: 0.8);
 
 TextStyle _labelMedium() => const TextStyle(
     fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 1.0);
