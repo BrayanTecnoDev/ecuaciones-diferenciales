@@ -28,7 +28,7 @@ class VisibilityFormField extends StatelessWidget {
       visible: visible,
       child: Column(
         children: [
-          Text(title),
+          Text(title, textAlign: TextAlign.center,),
           CustomTextFormFields(
               text: text,
               hintText: hintText,

@@ -55,7 +55,6 @@ class _CrecimientoPoblacionalState extends State<CrecimientoPoblacional> {
           child: SizedBox(
         width: MediaQuery.sizeOf(context).width * 0.9,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomTextFormFields(
               text: "P(0):",
@@ -215,7 +214,7 @@ class _TextVisibility {
   final String poblacion =
       "Hallar la población cuando ha transcurrido el siguiente tiempo";
   final String tiempo =
-      "Hallar el tiempo transcurrido cuando se ha alcanzdo la siguiente población";
+      "Hallar el tiempo transcurrido cuando se ha alcanzado la siguiente población";
 
   _TextVisibility();
 }

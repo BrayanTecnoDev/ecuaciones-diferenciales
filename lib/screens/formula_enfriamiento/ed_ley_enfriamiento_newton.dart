@@ -58,7 +58,6 @@ class _LeyEnfriamientoNewtonState extends State<LeyEnfriamientoNewton> {
           child: SizedBox(
             width: MediaQuery.sizeOf(context).width * 0.9,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomTextFormFields(
                   text: "T(0):",
@@ -223,8 +222,8 @@ class _LeyEnfriamientoNewtonState extends State<LeyEnfriamientoNewton> {
 
 class _TextVisibility {
   final String temperatura =
-      "Hallar temperatura cuando ha transcurrido el siguiente tiempo";
+      "Hallar temperatura cuando ha transcurrido el siguiente tiempo" ;
   final String tiempo =
-      "Hallar tiempo transcurrido cuando se ha alcanzdo la siguiente temperatura";
+      "Hallar tiempo transcurrido cuando se ha alcanzado la siguiente temperatura";
   _TextVisibility();
 }

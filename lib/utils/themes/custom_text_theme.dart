@@ -9,7 +9,7 @@ var textTheme = TextTheme(
     labelSmall: _labelSmall());
 
 TextStyle _titleLarge() => const TextStyle(
-    fontSize: 30, fontWeight: FontWeight.w600, letterSpacing: 1.3);
+    fontSize: 28, fontWeight: FontWeight.w600, letterSpacing: 1.3);
 
 TextStyle _titleMedium() => const TextStyle(
     fontSize: 28, fontWeight: FontWeight.w500, letterSpacing: 1.3);
